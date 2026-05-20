@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/requarks/wiki
-              tag: latest@sha256:e013da5e3b634fb6e09f469f2d63fe3a138d79087455bf1e9d804c7bd5109a09
+              tag: latest@sha256:68f0d1848261ae76492ba358e30a96a76fed5d97a3fff381656082bf90f70d7e
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
