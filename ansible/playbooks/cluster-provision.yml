@@ -62,6 +62,8 @@
     - name: Kubeconfig
       when: k3s_primary_control_node
       ansible.builtin.include_tasks: tasks/retrieve_kubeconfig.yaml
+      vars:
+        repository_base: "{{ lookup('ansible.builtin.pipe', 'git rev-parse --show-toplevel') }}"
 
     - name: Stale Containers
       ansible.builtin.include_tasks: tasks/stale_containers.yaml

@@ -17,6 +17,7 @@ x-env-vars: &env-vars
   pgid: "{{.pgid}}"
   previous: "{{.previous}}"
   puid: "{{.puid}}"
+  cluster: "{{ .cluster }}"
 
 vars:
   VOLSYNC_SCRIPTS_DIR: "{{.ROOT_DIR}}/.taskfiles/VolSync/scripts"
@@ -139,7 +140,7 @@ tasks:
       ns: '{{.ns | default "default"}}'
       previous: '{{.previous | default 2}}'
       controller:
-        sh: "{{.VOLSYNC_SCRIPTS_DIR}}/which-controller.sh {{.app}} {{.ns}}"
+        sh: "{{.VOLSYNC_SCRIPTS_DIR}}/which-controller.sh {{.app}} {{.ns}} {{.cluster}}"
       claim:
         sh: kubectl --context {{.cluster}} -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.sourcePVC}"
       puid:

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+WEB_IP_RESPONDER_URL="ifconfig.io"
+
+echo "Local IP: $(curl $WEB_IP_RESPONDER_URL 2> /dev/null)"
+echo "Crypto IP:"
+for deployment in $CHECKLEAK_DEPLOYMENTS; do
+    ip_address=$(kubectl exec -it deployment/$deployment -- curl $WEB_IP_RESPONDER_URL 2> /dev/null)
+    echo "    $deployment :: $ip_address"
+done
