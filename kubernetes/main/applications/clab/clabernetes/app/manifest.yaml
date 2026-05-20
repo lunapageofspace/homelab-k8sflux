@@ -457,7 +457,7 @@ spec:
       serviceAccountName: "clabernetes-service-account"
       containers:
         - name: ui
-          image: "ghcr.io/srl-labs/clabernetes/clabernetes-ui:0.3.1"
+          image: "ghcr.io/srl-labs/clabernetes/clabernetes-ui:0.5.0"
           imagePullPolicy: IfNotPresent
           resources:
             requests:
