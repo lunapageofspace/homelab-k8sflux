@@ -12,13 +12,13 @@ spec:
     # exclude all
     /*
     # include kubernetes directory
-    !/kubernetes/main/
+    !/kubernetes/testing/
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-flux-public
+  name: cluster-apps-public
   namespace: flux-system
 spec:
   deletionPolicy: WaitForTermination
