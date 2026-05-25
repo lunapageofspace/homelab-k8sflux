@@ -1,0 +1,17 @@
+---
+machine:
+  type: controlplane
+  nodeLabels:
+    topology.kubernetes.io/zone: testing
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: k8s-0
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: enp1s0
+addresses:
+  - address: 192.168.122.2/24
+routes:
+  - gateway: 192.168.122.1
