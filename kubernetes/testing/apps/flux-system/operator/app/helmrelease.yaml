@@ -14,6 +14,8 @@ spec:
       create: true
     web:
       config:
+        #! Flagging this as bad to do
+        #? Set up propper authentication and remove this
         authentication:
           type: Anonymous
           anonymous:
