@@ -7,3 +7,4 @@ namespace: network
 resources:
   - ./namespace.yaml
   # Flux Kustomizations
+  - ./envoy-gateway/ks.yaml
