@@ -9,7 +9,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/testing/apps/o11y/kube-prometheus-stack
+  path: ./kubernetes/testing/apps/o11y/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository
