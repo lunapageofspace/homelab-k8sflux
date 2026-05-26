@@ -43,7 +43,7 @@ releases:
           - --namespace={{ .Release.Namespace }}
           - --server-side
           - --force-conflicts
-          - --filename=../../apps/{{ .Release.Namespace }}/{{ .Release.Name }}/networking.yaml
+          - --filename=../../apps/{{ .Release.Namespace }}/{{ .Release.Name }}/app/networking.yaml
         events:
           - postsync
         showlogs: true
