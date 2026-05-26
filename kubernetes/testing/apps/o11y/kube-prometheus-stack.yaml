@@ -9,11 +9,11 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/o11y/kube-prometheus-stack
+  path: ./kubernetes/testing/apps/o11y/kube-prometheus-stack
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: cluster-flux-public
     namespace: flux-system
   targetNamespace: o11y
   wait: false
