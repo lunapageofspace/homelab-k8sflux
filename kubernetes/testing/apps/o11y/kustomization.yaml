@@ -7,4 +7,4 @@ namespace: o11y
 resources:
   - ./namespace.yaml
   # Flux Kustomizations
-  - ./kube-prometheus-stack.yaml
+  #- ./kube-prometheus-stack.yaml
