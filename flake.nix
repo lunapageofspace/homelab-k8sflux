@@ -47,6 +47,7 @@
             cilium-cli
             helm-ls
             just-lsp
+            fluxcd
             k8shelm
             k9s
             just
