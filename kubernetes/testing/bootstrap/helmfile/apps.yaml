@@ -88,6 +88,7 @@ releases:
     namespace: cert-manager
     inherit:
       - template: default
+    takeOwnership: true
 
   - name: operator
     namespace: flux-system

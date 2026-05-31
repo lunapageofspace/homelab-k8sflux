@@ -12,7 +12,7 @@ default:
 
 [confirm('Bootstrap cluster? [y|N]')]
 [doc('Bootstrap a Talos & Kubernetes cluster end-to-end')]
-bootstrap: nodes k8s (kubeconfig "node") base apps kubeconfig
+bootstrap: nodes k8s (kubeconfig "node") base apps kubeconfig openbao
 
 [private]
 [script]
@@ -88,6 +88,21 @@ sync-all:
     kubectl get gitrepositories --all-namespaces --no-headers | awk '{print $1, $2}' \
         | xargs --max-procs=4 -l bash -c \
             'flux reconcile source git $1 -n $0'
-    #kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
-    #    | xargs --max-procs=4 -l bash -c \
-    #        'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+    kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
+        | xargs --max-procs=4 -l bash -c \
+            'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+
+[doc('Configure OpenBAO for Kubernetes authentication')]
+[script]
+openbao:
+    just log info "Running stage..." "stage" "$(basename "$0")"
+
+    TOKEN="$(kubectl create token openbao-reviewer -n external-secrets --duration=87600h)"
+    CA_CERT="$(talosctl cat /etc/kubernetes/pki/ca.crt)"
+
+    if ! bao write auth/kubernetes/config \
+        kubernetes_host="https://k8s.zynthovian.xyz:6443" \
+        kubernetes_ca_cert=@<(echo "$CA_CERT") \
+        token_reviewer_jwt=@<(echo "$TOKEN"); then
+        just log fatal "Failed to write OpenBAO Kubernetes auth config" "stage" "$(basename "$0")"
+    fi
