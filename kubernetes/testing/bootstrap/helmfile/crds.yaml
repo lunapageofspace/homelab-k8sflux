@@ -38,3 +38,8 @@ releases:
     namespace: external-secrets
     inherit:
       - template: default
+
+  - name: cert-manager
+    namespace: cert-manager
+    inherit:
+      - template: default

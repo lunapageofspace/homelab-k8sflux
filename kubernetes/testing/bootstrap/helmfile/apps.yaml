@@ -84,6 +84,11 @@ releases:
           - postsync
         showlogs: true
 
+  - name: cert-manager
+    namespace: cert-manager
+    inherit:
+      - template: default
+
   - name: operator
     namespace: flux-system
     inherit:
