@@ -1,29 +1,13 @@
 ---
-# yaml-language-server: $schema=https://github.com/fluxcd-community/flux2-schemas/raw/refs/heads/main/helmrepository-source-v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: longhorn
-  namespace: longhorn-system
-spec:
-  interval: 5m
-  url: https://charts.longhorn.io
----
 # yaml-language-server: $schema=https://github.com/fluxcd-community/flux2-schemas/raw/refs/heads/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: longhorn
-  namespace: longhorn-system
+  name: &app longhorn
 spec:
-  chart:
-    spec:
-      chart: longhorn
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: longhorn
-      version: 1.9.2
+  chartRef:
+    kind: OCIRepository
+    name: longhorn
   interval: 1m0s
   values:
     csi:
@@ -33,3 +17,13 @@ spec:
       snapshotterReplicaCount: 1
     longhornUI:
       replicas: 1
+    httproute:
+      enabled: true
+      hostnames:
+          - longhorn.zynthovian.xyz
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+    metrics:
+      serviceMonitor:
+        enabled: true
