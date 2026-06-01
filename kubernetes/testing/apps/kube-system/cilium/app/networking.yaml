@@ -63,8 +63,8 @@ kind: Service
 metadata:
   name: kube-api
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: k8s.xynthovian.xyz
-    lbipam.cilium.io/ips: 192.168.69.120
+    external-dns.alpha.kubernetes.io/hostname: k8s.zynthovian.xyz
+    lbipam.cilium.io/ips: 10.250.0.255
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
