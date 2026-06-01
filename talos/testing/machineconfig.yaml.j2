@@ -2,9 +2,9 @@
 version: v1alpha1
 machine:
   ca:
-    crt: {{ MACHINE_CA_CRT }}
-    {% if CONTROLPLANE %}
-    key: {{ MACHINE_CA_KEY }}
+    crt: ref+vault://kubernetes/cluster#machine_ca_crt
+    {% if ENV.CONTROLPLANE %}
+    key: ref+vault://kubernetes/cluster#machine_ca_key
     {% endif %}
   features:
     apidCheckExtKeyUsage: true
@@ -16,7 +16,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if CONTROLPLANE %}
+    {% if ENV.CONTROLPLANE %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
@@ -49,8 +49,8 @@ machine:
   install:
     diskSelector:
       model: QEMU HARDDISK
-    #image: factory.talos.dev/metal-installer-secureboot/{{ SCHEMATIC | safe }}:v1.13.2
-    image: factory.talos.dev/metal-installer/{{ SCHEMATIC | safe }}:v1.13.2
+    #image: factory.talos.dev/metal-installer-secureboot/{{ ENV.SCHEMATIC }}:v1.13.2
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.2
     wipe: false
   #systemDiskEncryption:
   #  ephemeral:
@@ -73,7 +73,7 @@ machine:
       validSubnets:
         - 192.168.122.0/24
   nodeLabels:
-    topology.kubernetes.io/region: {{ CLUSTER_NAME }}
+    topology.kubernetes.io/region: {{ ENV.CLUSTER }}
   sysctls:
     fs.inotify.max_user_instances: "8192"
     fs.inotify.max_user_watches: "1048576"
@@ -96,14 +96,14 @@ machine:
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
     vm.nr_hugepages: "1024"
-  token: {{ MACHINE_TOKEN }}
+  token: ref+vault://kubernetes/cluster#machine_token
 cluster:
   ca:
-    crt: {{ CLUSTER_CA_CRT }}
-    {% if CONTROLPLANE %}
-    key: {{ CLUSTER_CA_KEY }}
+    crt: ref+vault://kubernetes/cluster#cluster_ca_crt
+    {% if ENV.CONTROLPLANE %}
+    key: ref+vault://kubernetes/cluster#cluster_ca_key
     {% endif %}
-  clusterName: {{ CLUSTER_NAME }}
+  clusterName: {{ ENV.CLUSTER }}
   controlPlane:
     endpoint: https://k8s.zynthovian.xyz:6443
   discovery:
@@ -113,7 +113,7 @@ cluster:
         disabled: true
       service:
         disabled: false
-  id: {{ CLUSTER_ID }}
+  id: ref+vault://kubernetes/cluster#cluster_id
   network:
     cni:
       name: none
@@ -122,12 +122,12 @@ cluster:
       - 10.42.0.0/16
     serviceSubnets:
       - 10.43.0.0/16
-  secret: {{ CLUSTER_SECRET }}
-  token: {{ CLUSTER_TOKEN }}
-  {% if CONTROLPLANE %}
+  secret: ref+vault://kubernetes/cluster#cluster_secret
+  token: ref+vault://kubernetes/cluster#cluster_token
+  {% if ENV.CONTROLPLANE %}
   aggregatorCA:
-    crt: {{ CLUSTER_AGGREGATORCA_CRT }}
-    key: {{ CLUSTER_AGGREGATORCA_KEY }}
+    crt: ref+vault://kubernetes/cluster#cluster_aggregatorca_crt
+    key: ref+vault://kubernetes/cluster#cluster_aggregatorca_key
   allowSchedulingOnControlPlanes: true
   apiServer:
     auditPolicy:
@@ -153,8 +153,8 @@ cluster:
     advertisedSubnets:
       - 192.168.122.0/24
     ca:
-      crt: {{ CLUSTER_ETCD_CA_CRT }}
-      key: {{ CLUSTER_ETCD_CA_KEY }}
+      crt: ref+vault://kubernetes/cluster#cluster_etcd_ca_crt
+      key: ref+vault://kubernetes/cluster#cluster_etcd_ca_key
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
@@ -181,9 +181,9 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.1
-  secretboxEncryptionSecret: {{ CLUSTER_SECRETBOXENCRYPTIONSECRET }}
+  secretboxEncryptionSecret: ref+vault://kubernetes/cluster#cluster_secretboxencryptionsecret
   serviceAccount:
-    key: {{ CLUSTER_SERVICEACCOUNT_KEY }}
+    key: ref+vault://kubernetes/cluster#cluster_serviceaccount_key
   {% endif %}
 #---
 #apiVersion: v1alpha1

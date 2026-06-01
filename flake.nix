@@ -53,6 +53,7 @@
             openbao
             k9s
             just
+            vals
             gum
             jq
             yq-go
