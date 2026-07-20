@@ -29,7 +29,7 @@ spec:
       exclusive: false
     dashboards:
       enabled: true
-    devices: enp+
+    devices: bond0
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
