@@ -61,7 +61,7 @@ metadata:
 spec:
   provider:
     vault:
-      server: "https://fw-a.zynthovian.xyz:8200"
+      server: "https://xenia.zynthovian.xyz:8200"
       path: "kubernetes"
       version: "v2"
       auth:
