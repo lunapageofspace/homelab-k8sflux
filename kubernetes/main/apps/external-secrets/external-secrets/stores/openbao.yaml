@@ -62,7 +62,7 @@ spec:
   provider:
     vault:
       server: "https://xenia.zynthovian.xyz:8200"
-      path: "kubernetes"
+      path: "kubernetes-main"
       version: "v2"
       auth:
         kubernetes:
