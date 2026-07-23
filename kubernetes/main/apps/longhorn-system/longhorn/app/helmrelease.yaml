@@ -10,11 +10,12 @@ spec:
     name: longhorn
   interval: 1m0s
   values:
-    csi:
-      attacherReplicaCount: 1
-      provisionerReplicaCount: 1
-      resizerReplicaCount: 1
-      snapshotterReplicaCount: 1
+    # csi:
+    #  Set for one node cluster, otherwise set to 3 for HA
+    #   attacherReplicaCount: 1
+    #   provisionerReplicaCount: 1
+    #   resizerReplicaCount: 1
+    #   snapshotterReplicaCount: 1
     longhornUI:
       replicas: 1
     httproute:
