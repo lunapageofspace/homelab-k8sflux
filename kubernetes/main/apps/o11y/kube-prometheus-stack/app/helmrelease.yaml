@@ -25,6 +25,8 @@ spec:
             - name: envoy-internal
               namespace: network
       alertmanagerSpec:
+        # Alertmanager doesn't call the Kubernetes API itself.
+        automountServiceAccountToken: false
         alertmanagerConfiguration:
           name: alertmanager
         externalUrl: https://alertmanager.zynthovian.xyz
@@ -73,6 +75,11 @@ spec:
                   storage: 5Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      # node-exporter reads host /proc,/sys — it never calls the Kubernetes
+      # API. Verify this exact key against your chart version
+      # (subchart-nested `serviceAccount.automountServiceAccountToken`).
+      serviceAccount:
+        automountServiceAccountToken: false
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
     grafana:
