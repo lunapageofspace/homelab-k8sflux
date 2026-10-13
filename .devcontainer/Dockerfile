@@ -1,4 +1,4 @@
-FROM docker.io/nixos/nix:2.35.2
+FROM docker.io/nixos/nix:2.35.3
 
 # - { Configure image to use flakes }
 RUN mkdir -p /etc/nix && \
