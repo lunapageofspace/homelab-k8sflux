@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: main@sha256:525b59ed57bc3e4b07597934ca8cd59d93de52cd453a39e0a587dbf75d0bbee6
+              tag: main@sha256:a71bf2b85889aad9979c1c2d85657ff11e56f480e617bddbf83b3a1249589e0d
             env:
               TZ: America/New_York
               HOMEPAGE_ALLOWED_HOSTS: "*"
